@@ -5,36 +5,46 @@ using namespace std;
 
 class doList {
 public:
-        dolist(float[], float[], int );
-        void out(char );
-        void out(int i, char);
-        int insert(float, float);
+        dolist(float speed[], float fuel[], int size);
+        void out(char direction);
+        void out(int i, char direction);
+        int insert(float speed, float fuel);
         void increase_speed(int i, float s);
         void decrease_fuel(int i, float f);
 
 private:
-        //string dmkafkl;
+        Node* first;
+        Node* last;
+        Node** entries;
 };
 
 struct Node {
-	int data;
+	float avgSpeed;
+  float fuelEfficiency;
 	struct Node* next;
-	struct Node* prev; 
+	struct Node* prev;
 };
 
-doList::doList() {
+doList::doList(float speed[], float fuel[], int size) {
+  float sorted;
+  sort(speed.begin, speed.end, sorted);
+
+  /*allocate new Node
+  set it's parameters
+  keep doing that for each node
+  sort nodes
+  delete nodes that are dominated*/
+}
+
+void doList::out(char direction) {
 
 }
 
-void doList::out(char ) {
+void doList::out(int i, char direction) {
 
 }
 
-void doList::out(int i, char ) {
-
-}
-
-int doList::insert(float, float) {
+int doList::insert(float speed, float fuel) {
 
 }
 
