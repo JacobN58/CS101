@@ -25,6 +25,7 @@ struct Node {
 	struct Node* prev;
 };
 
+//mergeSort
 struct Node *split(struct Node *head) {
       struct Node *fast = head,*slow = head;
       while(fast->next && fast->next->next) {
@@ -35,7 +36,6 @@ struct Node *split(struct Node *head) {
       slow->next = NULL;
       return temp;
   }
-
 struct Node *merge(struct Node *first, struct Node *last) {
     if(!first)
         return last;
@@ -56,7 +56,6 @@ struct Node *merge(struct Node *first, struct Node *last) {
         return last;
     }
 }
-
 struct Node *mergeSort(struct Node *head) {
     if(!head || !head->next)
         return head;
@@ -67,7 +66,6 @@ struct Node *mergeSort(struct Node *head) {
 }
 
 doList::doList(float speed[], float fuel[], int size) {
-
   for(int i = 0; i < size; i++) {
     Node *newNode = new Node;
     newNode->avgSpeed = speed[i];
