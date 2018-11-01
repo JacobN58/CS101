@@ -22,7 +22,6 @@ struct Node {
 	struct Node* prev;
 };
 
-//mergeSort
 struct Node *split(struct Node *head) {
       struct Node *fast = head,*slow = head;
       while(fast->next && fast->next->next) {
@@ -33,6 +32,7 @@ struct Node *split(struct Node *head) {
       slow->next = NULL;
       return current;
   }
+
 struct Node *merge(struct Node *first, struct Node *last) {
     if(!first)
         return last;
@@ -53,6 +53,7 @@ struct Node *merge(struct Node *first, struct Node *last) {
         return last;
     }
 }
+
 struct Node *mergeSort(struct Node *head) {
     if(!head || !head->next)
         return head;
