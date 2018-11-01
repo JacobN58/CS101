@@ -207,7 +207,7 @@ int doList::insert(float speed, float fuel) {
 }
 
 void doList::increase_speed(int i, float s) {
-  
+  //salkfnsn;afn;ka
 }
 
 void doList::decrease_fuel(int i, float f) {
