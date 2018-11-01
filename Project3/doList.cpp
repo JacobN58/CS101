@@ -63,13 +63,6 @@ struct Node *mergeSort(struct Node *head) {
 }
 
 doList::doList(float speed[], float fuel[], int size) {
-<<<<<<< HEAD
-  for(int i = 0; i < size; i++) {
-    Node *newNode = new Node;
-    newNode->avgSpeed = speed[i];
-    newNode->fuelEfficiency = fuel[i];
-    newNode->next = NULL; newNode->prev = NULL;
-=======
 
   first = new Node;
   // Node *last;
@@ -88,7 +81,6 @@ doList::doList(float speed[], float fuel[], int size) {
       temp->prev = last;
       last->next = temp;
       last = temp;
->>>>>>> 7ed786e32a742418372f1316790013f7f570d36e
   }
 
   first = mergeSort(first);
