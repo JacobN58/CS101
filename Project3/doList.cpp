@@ -93,7 +93,7 @@ doList::doList(float speed[], float fuel[], int size) {
 Node *temp = first;
 Node *comp = temp->next;
 while(temp->next->next != NULL) {
-  if(temp->avgSpeed > comp->avgSpeed && temp->fuelEfficiency <= comp->fuelEfficiency) {
+  if((temp->avgSpeed > comp->avgSpeed) && (temp->fuelEfficiency <= comp->fuelEfficiency)) {
     comp = temp->next;
     temp->next = comp->next;
     comp->next->prev = temp;
@@ -105,36 +105,32 @@ while(temp->next->next != NULL) {
   comp = temp->next;
 }
 
-  // Node* temp = first;
-  // for(int i = 0; i < size; i++) {
-  //     cout << "Speed " << temp->avgSpeed << "Fuel " << temp->fuelEfficiency << endl;
-  //     temp = temp->next;
+  cout << "START HERE" << endl;
+  temp = first;
+  while(temp != NULL) {
+      cout << "Speed " << temp->avgSpeed << "Fuel " << temp->fuelEfficiency << endl;
+      temp = temp->next;
+  }
+  // cout << "START 2" << endl;
+  // temp = last;
+  // while(temp != NULL) {
+  //   cout << "Speed " << temp->avgSpeed << "Fuel " << temp->fuelEfficiency << endl;
+  //     temp = temp->prev;
   // }
-  // for(int i = 0; i < size; i++) {
-  //   cout << "Speed " << last->avgSpeed << "Fuel " << last->fuelEfficiency << endl;
-  //     last = last->prev;
-  // }
-
-  /*allocate new Node
-  set it's parameters
-  keep doing that for each node
-  sort nodes
-  delete nodes that are dominated*/
 }
 
 void doList::out(char direction) {
-  struct Node *temp = first;
+  Node *temp = first;
   if(direction == 'd') {
-    while(temp) {
+    while(temp != NULL) {
         cout << "Speed " << temp->avgSpeed << " Fuel " << temp->fuelEfficiency << endl;
-        // temp = first;
         temp = temp->next;
     }
   }
 
   if(direction == 'a') {
     temp = last;
-    while(temp) {
+    while(temp != NULL) {
       cout << "Speed " << temp->avgSpeed << " Fuel " << temp->fuelEfficiency << endl;
         temp = temp->prev;
     }
@@ -142,18 +138,20 @@ void doList::out(char direction) {
 }
 
 void doList::out(int i, char direction) {
-  struct Node *temp = first;
+  Node *temp = first;
+  int j = 0;
   if(direction == 'd') {
-    for(int j = 0; j < i; j++) {
-        cout << "Speed " << first->avgSpeed << " Fuel " << first->fuelEfficiency << endl;
-        temp = first;
-        first = first->next;
+    while(temp != NULL && j < i) {
+      j++;
+      cout << "Speed " << temp->avgSpeed << " Fuel " << temp->fuelEfficiency << endl;
+      temp = temp->next;
     }
   }
   if(direction == 'a') {
-    for(int j = 0; j < i; j++) {
+    while(temp != NULL && j < i) {
+      j++;
       cout << "Speed " << temp->avgSpeed << " Fuel " << temp->fuelEfficiency << endl;
-        temp = temp->prev;
+      temp = temp->prev;
     }
   }
 }
@@ -172,7 +170,7 @@ int doList::insert(float speed, float fuel) {
       num = 0;
     }
     while(temp != NULL && temp->next != NULL) {
-      if(temp->avgSpeed > newNode->avgSpeed && temp->next->avgSpeed < newNode->next->avgSpeed) {
+      if((temp->avgSpeed > newNode->avgSpeed) && (temp->next->avgSpeed < newNode->avgSpeed)) {
         newNode->next = temp->next;
         temp->next = newNode;
         newNode->prev = temp;
@@ -187,11 +185,16 @@ int doList::insert(float speed, float fuel) {
       newNode->prev = temp;
       last = newNode;
     }
-//Dominates
-    Node *temp = first;
+
+    //Dominates
+    first = mergeSort(first);
+    while(last->next != NULL) {
+      last = last->next;
+    }
+    temp = first;
     Node *comp = temp->next;
     while(temp->next->next != NULL) {
-      if(temp->avgSpeed > comp->avgSpeed && temp->fuelEfficiency <= comp->fuelEfficiency) {
+      if((temp->avgSpeed > comp->avgSpeed) && (temp->fuelEfficiency <= comp->fuelEfficiency)) {
         comp = temp->next;
         temp->next = comp->next;
         comp->next->prev = temp;
@@ -202,14 +205,92 @@ int doList::insert(float speed, float fuel) {
       }
       comp = temp->next;
     }
+    cout << "START insert" << endl;
+    temp = first;
+    while(temp != NULL) {
+        cout << "Speed " << temp->avgSpeed << "Fuel " << temp->fuelEfficiency << endl;
+        temp = temp->next;
+    }
     num = i;
     return num;
 }
 
 void doList::increase_speed(int i, float s) {
-  //salkfnsn;afn;ka
+  int pos = 0;
+  Node *temp = first;
+  while(temp != NULL) {
+    pos++;
+    if(pos == i) {
+      temp->avgSpeed = temp->avgSpeed + s;
+    }
+    if(pos != i) {
+      temp = temp->next;
+    }
+  }
+  //Dominates
+  // first = mergeSort(first);
+  // while(last->next != NULL) {
+  //   last = last->next;
+  // }
+  temp = first;
+  Node *comp = temp->next;
+  while(temp->next->next != NULL) {
+    if((temp->avgSpeed > comp->avgSpeed) && (temp->fuelEfficiency <= comp->fuelEfficiency)) {
+      cout << "Dominates increase" << endl;
+      comp = temp->next;
+      temp->next = comp->next;
+      comp->next->prev = temp;
+    }
+    else {
+      comp = temp->next;
+      temp = temp->next;
+    }
+    comp = temp->next;
+  }
+  cout << "START increase" << endl;
+  temp = first;
+  while(temp != NULL) {
+      cout << "Speed " << temp->avgSpeed << "Fuel " << temp->fuelEfficiency << endl;
+      temp = temp->next;
+  }
 }
 
 void doList::decrease_fuel(int i, float f) {
-
+  int pos = 0;
+  Node *temp = first;
+  while(temp != NULL) {
+    pos++;
+    if(pos == i) {
+      temp->fuelEfficiency = temp->fuelEfficiency - f;
+    }
+    if(pos != i) {
+      temp = temp->next;
+    }
+  }
+  //Dominates
+  // first = mergeSort(first);
+  // while(last->next != NULL) {
+  //   last = last->next;
+  // }
+  temp = first;
+  Node *comp = temp->next;
+  while(temp->next->next != NULL) {
+    if((temp->avgSpeed > comp->avgSpeed) && (temp->fuelEfficiency <= comp->fuelEfficiency)) {
+      cout << "Dominates Decrease" << endl;
+      comp = temp->next;
+      temp->next = comp->next;
+      comp->next->prev = temp;
+    }
+    else {
+      comp = temp->next;
+      temp = temp->next;
+    }
+    comp = temp->next;
+  }
+  cout << "START Decrease" << endl;
+  temp = first;
+  while(temp != NULL) {
+      cout << "Speed " << temp->avgSpeed << "Fuel " << temp->fuelEfficiency << endl;
+      temp = temp->next;
+  }
 }
